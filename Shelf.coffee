@@ -1,0 +1,5 @@
+class Shelf
+
+  name: ''
+  books: []
+ 
