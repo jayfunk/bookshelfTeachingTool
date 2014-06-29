@@ -4,22 +4,25 @@ class Book
   coverImage: ''
   bookFile: ''
 
-  constructor: (rawTitle) ->
-    @_setBookFile rawTitle
-    @_setCoverImage rawTitle
+  constructor: (rawTitle = '') ->
+    @bookFile = @_getBookFilePath rawTitle
+    @coverImage = @_getCoverImage rawTitle
     @title = @_getTitle rawTitle
 
-  _setBookFile: (filePath) =>
-    if filePath.endsWith '.pdf' 
-      @bookFile = "./books/#{filePath}"
+  _getBookFilePath: (filePath) =>
+    "./books/#{filePath}"
 
-  _setCoverImage: (pdfFile) =>
+  _getCoverImage: (pdfFile) =>
     imageFile = pdfFile.replace /[.]pdf$/, '.jpeg'
-    @coverImage = "./bookCovers/#{imageFile}"
+    "./bookCovers/#{imageFile}"
 
   _getTitle: (rawTitle) ->
-    return for word in rawTitle.split '_'
-      word.replace /^./, (match) ->
-        match.toUpperCase()
+    baseTitle = rawTitle.replace '.pdf', ''
+    titleWords = for word in baseTitle.split '_'
+      unless word is 'and' or word is 'or' or word is 'of'
+        word.replace /^./, (match) -> match.toUpperCase()
+      else
+        word
+    titleWords.join ' '
 
 exports.Book = Book
