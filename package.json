@@ -1,0 +1,26 @@
+{
+  "name": "bookshelfTeachingTool",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "main.coffee",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "~1.9.1",
+    "express": "~4.4.5"
+  },
+  "devDependencies": {
+    "mocha": "~1.20.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jayfunk/bookshelfTeachingTool.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "gitHead": "8b1bbb9862933ab167981378c50576fcbaf12e0b"
+}

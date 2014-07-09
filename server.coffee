@@ -2,9 +2,6 @@ express = require 'express'
 fs = require 'fs'
 Book = require('./Book').Book
 
-console.log new Book 'test'
-
-
 server = express()
 
 server.get '/books', (req, res) ->
@@ -18,3 +15,5 @@ getBooks = ->
     books
 
 server.listen 8080
+
+console.log 'Server Started'
