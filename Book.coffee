@@ -5,18 +5,23 @@ class Book
   bookFile: ''
 
   constructor: (rawTitle = '') ->
-    @bookFile = @_getBookFilePath rawTitle
-    @coverImage = @_getCoverImage rawTitle
-    @title = @_getTitle rawTitle
+    @setBookFilePath rawTitle
+    @setCoverImage rawTitle
+    @setTitle rawTitle
 
-  _getBookFilePath: (filePath) =>
-    "./books/#{filePath}"
+  setBookFilePath: (fileName) ->
+    @bookFile = "./books/#{fileName}"
 
-  _getCoverImage: (pdfFile) =>
-    imageFile = pdfFile.replace /[.]pdf$/, '.jpeg'
-    "./bookCovers/#{imageFile}"
+  setCoverImage: (coverImage) ->
+    @coverImage = "./bookCovers/#{@_getCoverImageFromPDFFileName(coverImage)}"
 
-  _getTitle: (rawTitle) ->
+  setTitle: (title) ->
+    @title = @_getTitleFromPDFFileName title
+
+  _getCoverImageFromPDFFileName: (pdfFile) =>
+    pdfFile.replace /[.]pdf$/, '.jpeg'
+
+  _getTitleFromPDFFileName: (rawTitle) ->
     baseTitle = rawTitle.replace '.pdf', ''
     titleWords = for word in baseTitle.split '_'
       unless word is 'and' or word is 'or' or word is 'of'
