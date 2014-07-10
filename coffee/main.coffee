@@ -14,14 +14,15 @@ window.processJSONResponse = ->
     renderBooks jsonResponse
 
 window.renderBooks = (books) ->
-  bookHTML = ''
+  bookHTML = '<ul>'
   for book in books
     bookHTML += """
-    <div>
+    <li>
       <a href='#{book.bookFilePath}'>
         <img src='#{book.coverImagePath}'/>
         <h5>#{book.title}</h5>
       </a>
-    </div>
+    </li>
     """
+  bookHTML += '</ul>'
   document.body.innerHTML = bookHTML 
