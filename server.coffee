@@ -1,19 +1,17 @@
 express = require 'express'
 fs = require 'fs'
-Book = require('./Book').Book
+Book = require('./coffee/models/Book').Book
 
-server = express()
+app = express()
 
-server.get '/books', (req, res) ->
-  books = getBooks()
-  res.send books
+app.use '/', express.static __dirname
 
-getBooks = ->
+app.get '/books', (req, res) ->
   fs.readdir './books', (err, files) ->
-    books = []
-    books.push new Book file for file in files 
-    books
+    books = for file in files
+      continue if file is '.DS_Store'
+      new Book file
+    res.send books
 
-server.listen 8080
-
-console.log 'Server Started'
+server = app.listen 8080, ->
+  console.log 'Server started on port ' + server.address().port

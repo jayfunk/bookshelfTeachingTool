@@ -1,6 +1,6 @@
 expect = require('chai').expect
-Shelf = require('../Shelf').Shelf
-Book = require('../Book').Book
+Shelf = require('../models/Shelf').Shelf
+Book = require('../models/Book').Book
 
 describe 'Shelf contains multiple books and can have a name for the shelf', ->
 

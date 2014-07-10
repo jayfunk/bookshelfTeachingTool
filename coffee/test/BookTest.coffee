@@ -1,5 +1,5 @@
 expect = require('chai').expect
-Book = require('../Book').Book
+Book = require('../models/Book').Book
 
 describe 'Book', ->
 
@@ -34,16 +34,22 @@ describe 'Book', ->
 
     it 'should set the correct path to the cover images when using the set funciton', ->
       book.setCoverImage 'the_incredibles.jpeg'
-      expect(book.coverImage).to.equal './bookCovers/the_incredibles.jpeg'
+      expect(book.coverImagePath).to.equal './bookCovers/the_incredibles.jpeg'
 
   describe 'build the file path for the pdf', ->
 
     it 'should make the correct path with the provided path', ->
       book.setBookFilePath 'this_is_my_movie_name.pdf'
-      expect(book.bookFile).to.equal './books/this_is_my_movie_name.pdf'
+      expect(book.bookFilePath).to.equal './books/this_is_my_movie_name.pdf'
 
   it 'uses a constructor to set all of the properties based on the file name', ->
     book = new Book 'the_pauper_king.pdf'
     expect(book.title).to.equal 'The Pauper King'
-    expect(book.coverImage).to.equal './bookCovers/the_pauper_king.jpeg'
-    expect(book.bookFile).to.equal './books/the_pauper_king.pdf'
+    expect(book.coverImagePath).to.equal './bookCovers/the_pauper_king.jpeg'
+    expect(book.bookFilePath).to.equal './books/the_pauper_king.pdf'
+
+  it 'can pass in the file path and the cover image and use those exactly', ->
+    book = new Book 'Title', './differentBooks/title.pdf', './images/title.jpeg'
+    expect(book.title).to.equal 'Title'
+    expect(book.coverImagePath).to.equal './images/title.jpeg'
+    expect(book.bookFilePath).to.equal './differentBooks/title.pdf'

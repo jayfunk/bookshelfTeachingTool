@@ -1,19 +1,24 @@
 class Book
 
   title: ''
-  coverImage: ''
-  bookFile: ''
+  bookFilePath: ''
+  coverImagePath: ''
 
-  constructor: (rawTitle = '') ->
-    @setBookFilePath rawTitle
-    @setCoverImage rawTitle
-    @setTitle rawTitle
+  constructor: (rawTitle = '', bookFilePath = '', coverImagePath = '') ->
+    if bookFilePath is '' and coverImagePath is ''
+      @setBookFilePath rawTitle
+      @setCoverImage rawTitle
+      @setTitle rawTitle
+    else
+      @title = rawTitle
+      @bookFilePath = bookFilePath
+      @coverImagePath = coverImagePath
 
   setBookFilePath: (fileName) ->
-    @bookFile = "./books/#{fileName}"
+    @bookFilePath = "./books/#{fileName}"
 
   setCoverImage: (coverImage) ->
-    @coverImage = "./bookCovers/#{@_getCoverImageFromPDFFileName(coverImage)}"
+    @coverImagePath = "./bookCovers/#{@_getCoverImageFromPDFFileName(coverImage)}"
 
   setTitle: (title) ->
     @title = @_getTitleFromPDFFileName title

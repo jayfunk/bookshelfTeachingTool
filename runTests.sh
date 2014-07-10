@@ -1,1 +1,1 @@
-mocha --watch --compilers coffee:coffee-script
+mocha --watch ./coffee/test --compilers coffee:coffee-script
