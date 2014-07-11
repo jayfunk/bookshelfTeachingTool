@@ -20,6 +20,12 @@ class BookService
         book
       callback books
 
+  addBook: (book, bookFile, coverImage) ->
+    bookDir = path.join @startingBookDir, book.title.toLowerCase()
+    unless fs.existsSync bookDir
+      fs.mkdirSync bookDir
+    fs.writeFileSync path.join(bookDir, 'bookData.json'), JSON.stringify(book.toJSON())
+
   _getPathsToBookMetaData: (callback) ->
     glob "#{@startingBookDir}/**/#{@_bookDataFileName}", (error, files) ->
       callback error, files

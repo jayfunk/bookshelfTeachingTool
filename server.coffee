@@ -11,5 +11,7 @@ app.get '/books', (req, res) ->
   StartedBookService.getBooks (books) ->
     res.send books
 
+app.get '/books/new', (req, res) ->
+
 server = app.listen 8080, ->
   console.log 'Server started on port ' + server.address().port
