@@ -1,4 +1,5 @@
 window.exports = {}
+window.require = ->
 
 request = null
 
@@ -18,8 +19,8 @@ window.renderBooks = (books) ->
   for book in books
     bookHTML += """
     <li>
-      <a href='#{book.bookFilePath}'>
-        <img src='#{book.coverImagePath}'/>
+      <a href='#{book.bookFile}'>
+        <img src='#{book.coverImage}'/>
         <h5>#{book.title}</h5>
       </a>
     </li>
