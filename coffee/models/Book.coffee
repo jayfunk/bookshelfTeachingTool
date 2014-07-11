@@ -1,38 +1,25 @@
+path = require 'path'
+
 class Book
 
   title: ''
-  bookFilePath: ''
-  coverImagePath: ''
+  bookFile: ''
+  coverImage: ''
 
-  constructor: (rawTitle = '', bookFilePath = '', coverImagePath = '') ->
-    if bookFilePath is '' and coverImagePath is ''
-      @setBookFilePath rawTitle
-      @setCoverImage rawTitle
-      @setTitle rawTitle
-    else
-      @title = rawTitle
-      @bookFilePath = bookFilePath
-      @coverImagePath = coverImagePath
+  constructor: (json) ->
+    for key, value of json
+      @[key] = value
+    @_appendDirRootToFiles()
 
-  setBookFilePath: (fileName) ->
-    @bookFilePath = "./books/#{fileName}"
+  toJSON: ->
+    json = 
+      title: @title
+      bookFile: @bookFile
+      coverImage: @coverImage
+    json
 
-  setCoverImage: (coverImage) ->
-    @coverImagePath = "./bookCovers/#{@_getCoverImageFromPDFFileName(coverImage)}"
-
-  setTitle: (title) ->
-    @title = @_getTitleFromPDFFileName title
-
-  _getCoverImageFromPDFFileName: (pdfFile) =>
-    pdfFile.replace /[.]pdf$/, '.jpeg'
-
-  _getTitleFromPDFFileName: (rawTitle) ->
-    baseTitle = rawTitle.replace '.pdf', ''
-    titleWords = for word in baseTitle.split '_'
-      unless word is 'and' or word is 'or' or word is 'of'
-        word.replace /^./, (match) -> match.toUpperCase()
-      else
-        word
-    titleWords.join ' '
+  _appendDirRootToFiles: ->
+    @bookFile = @directoryRoot + @bookFile
+    @coverImage = @directoryRoot + @coverImage
 
 exports.Book = Book
